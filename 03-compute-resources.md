@@ -23,9 +23,9 @@
 * list instances
     * `gcloud compute instances list`
 * verify SSH to all instances (spawns Putty on Windows)
-    * `gcloud compute ssh controller-0`
-    * `gcloud compute ssh controller-1`
-    * `gcloud compute ssh controller-2`
-    * `gcloud compute ssh worker-0`
-    * `gcloud compute ssh worker-1`
-    * `gcloud compute ssh worker-2`
+    * `Start-Process -FilePath "gcloud" -ArgumentList "compute ssh controller-0"`
+    * `Start-Process -FilePath "gcloud" -ArgumentList "compute ssh controller-1"`
+    * `Start-Process -FilePath "gcloud" -ArgumentList "compute ssh controller-2"`
+    * `Start-Process -FilePath "gcloud" -ArgumentList "compute ssh worker-0"`
+    * `Start-Process -FilePath "gcloud" -ArgumentList "compute ssh worker-1"`
+    * `Start-Process -FilePath "gcloud" -ArgumentList "compute ssh worker-2"`
