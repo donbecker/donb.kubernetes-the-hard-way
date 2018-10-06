@@ -60,14 +60,14 @@
         * service-account.pem
 * distribute the client and server certificates
     * worker-0
-        * `$INSTANCE="worker-0"; gcloud compute scp .\ca.pem ${instance}:~; gcloud compute scp ".\${instance}-key.pem" ${instance}:~; gcloud compute scp ".\${instance}.pem" ${instance}:~`
+        * `$INSTANCE="worker-0"; gcloud compute scp .\ca.pem ${instance}:ca.pem; gcloud compute scp ".\${instance}-key.pem" ${instance}:"${instance}-key.pem"; gcloud compute scp ".\${instance}.pem" ${instance}:"${instance}.pem"`
     * worker-1
-        * `$INSTANCE="worker-1"; gcloud compute scp .\ca.pem ${instance}:~; gcloud compute scp ".\${instance}-key.pem" ${instance}:~; gcloud compute scp ".\${instance}.pem" ${instance}:~`
+        * `$INSTANCE="worker-1"; gcloud compute scp .\ca.pem ${instance}:ca.pem; gcloud compute scp ".\${instance}-key.pem" ${instance}:"${instance}-key.pem"; gcloud compute scp ".\${instance}.pem" ${instance}:"${instance}.pem"`
     * worker-2
-        * `$INSTANCE="worker-2"; gcloud compute scp .\ca.pem ${instance}:~; gcloud compute scp ".\${instance}-key.pem" ${instance}:~; gcloud compute scp ".\${instance}.pem" ${instance}:~`
+        * `$INSTANCE="worker-2"; gcloud compute scp .\ca.pem ${instance}:ca.pem; gcloud compute scp ".\${instance}-key.pem" ${instance}:"${instance}-key.pem"; gcloud compute scp ".\${instance}.pem" ${instance}:"${instance}.pem"`
     * controller-0
-        * `$INSTANCE="controller-0"; gcloud compute scp .\ca.pem ${instance}:~; gcloud compute scp ".\ca-key.pem" ${instance}:~; gcloud compute scp ".\kubernetes-key.pem" ${instance}:~; gcloud compute scp ".\kubernetes.pem" ${instance}:~; gcloud compute scp ".\service-account-key.pem" ${instance}:~; gcloud compute scp ".\service-account.pem" ${instance}:~`
+        * `$INSTANCE="controller-0"; gcloud compute scp .\ca.pem ${instance}:ca.pem; gcloud compute scp ".\ca-key.pem" ${instance}:ca-key.pem; gcloud compute scp ".\kubernetes-key.pem" ${instance}:kubernetes-key.pem; gcloud compute scp ".\kubernetes.pem" ${instance}:kubernetes.pem; gcloud compute scp ".\service-account-key.pem" ${instance}:service-account-key.pem; gcloud compute scp ".\service-account.pem" ${instance}:service-account.pem`
     * controller-1
-        * `$INSTANCE="controller-1"; gcloud compute scp .\ca.pem ${instance}:~; gcloud compute scp ".\ca-key.pem" ${instance}:~; gcloud compute scp ".\kubernetes-key.pem" ${instance}:~; gcloud compute scp ".\kubernetes.pem" ${instance}:~; gcloud compute scp ".\service-account-key.pem" ${instance}:~; gcloud compute scp ".\service-account.pem" ${instance}:~`
+        * `$INSTANCE="controller-1"; gcloud compute scp .\ca.pem ${instance}:ca.pem; gcloud compute scp ".\ca-key.pem" ${instance}:ca-key.pem; gcloud compute scp ".\kubernetes-key.pem" ${instance}:kubernetes-key.pem; gcloud compute scp ".\kubernetes.pem" ${instance}:kubernetes.pem; gcloud compute scp ".\service-account-key.pem" ${instance}:service-account-key.pem; gcloud compute scp ".\service-account.pem" ${instance}:service-account.pem`
     * controller-2
-        * `$INSTANCE="controller-2"; gcloud compute scp .\ca.pem ${instance}:~; gcloud compute scp ".\ca-key.pem" ${instance}:~; gcloud compute scp ".\kubernetes-key.pem" ${instance}:~; gcloud compute scp ".\kubernetes.pem" ${instance}:~; gcloud compute scp ".\service-account-key.pem" ${instance}:~; gcloud compute scp ".\service-account.pem" ${instance}:~`
+        * `$INSTANCE="controller-2"; gcloud compute scp .\ca.pem ${instance}:ca.pem; gcloud compute scp ".\ca-key.pem" ${instance}:ca-key.pem; gcloud compute scp ".\kubernetes-key.pem" ${instance}:kubernetes-key.pem; gcloud compute scp ".\kubernetes.pem" ${instance}:kubernetes.pem; gcloud compute scp ".\service-account-key.pem" ${instance}:service-account-key.pem; gcloud compute scp ".\service-account.pem" ${instance}:service-account.pem`
