@@ -1,9 +1,26 @@
-* generate encryption config file
-    * `$ENCRYPTION_KEY=[System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes([guid]::NewGuid())); "kind: EncryptionConfig`r`napiVersion: v1`r`nresources:`r`n  - resources:`r`n      - secrets`r`n    providers:`r`n      - aescbc:`r`n          keys:`r`n            - name: key1`r`n              secret: ${ENCRYPTION_KEY}`r`n      - identity: {}" | Out-File encryption-config.yaml -Encoding ascii`
-* fix line endings on encryption config file: change from "CRLF" to "LF" in VSCode and save
-* distribute encryption config file to each controller
-    * controller-0
-        * `$INSTANCE="controller-0"; gcloud compute scp encryption-config.yaml ${instance}:encryption-config.yaml`
+* connect to the first controller and create the encryption config file
+    * `Start-Process -FilePath "gcloud" -ArgumentList "compute ssh controller-0"`
+* generate encryption key
+    * `ENCRYPTION_KEY=$(head -c 32 /dev/urandom | base64)`
+* create the encryption file
+```
+cat > encryption-config.yaml <<EOF
+kind: EncryptionConfig
+apiVersion: v1
+resources:
+  - resources:
+      - secrets
+    providers:
+      - aescbc:
+          keys:
+            - name: key1
+              secret: ${ENCRYPTION_KEY}
+      - identity: {}
+EOF
+```
+* copy the encryption config file from the controller to local
+    * `$INSTANCE="controller-0"; gcloud compute scp ${instance}:encryption-config.yaml encryption-config.yaml`
+* distribute encryption config file to the other controllers
     * controller-1
         * `$INSTANCE="controller-1"; gcloud compute scp encryption-config.yaml ${instance}:encryption-config.yaml`
     * controller-2

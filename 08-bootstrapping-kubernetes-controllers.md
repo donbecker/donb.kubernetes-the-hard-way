@@ -149,3 +149,72 @@ EOF
 * start nginx
     * `sudo systemctl restart nginx`
     * `sudo systemctl enable nginx`
+* verify cluster (run on all controllers)
+    * `kubectl get componentstatuses --kubeconfig admin.kubeconfig`
+* test nginx HTTP health check proxy (run on all controllers
+    * `curl -H "Host: kubernetes.default.svc.cluster.local" -i http://127.0.0.1/healthz`
+* from the controller-0 server:
+    * create the system:kube-apiserver-to-kubelet cluster role
+```
+cat <<EOF | kubectl apply --kubeconfig admin.kubeconfig -f -
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRole
+metadata:
+  annotations:
+    rbac.authorization.kubernetes.io/autoupdate: "true"
+  labels:
+    kubernetes.io/bootstrapping: rbac-defaults
+  name: system:kube-apiserver-to-kubelet
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - nodes/proxy
+      - nodes/stats
+      - nodes/log
+      - nodes/spec
+      - nodes/metrics
+    verbs:
+      - "*"
+EOF
+```
+* verify
+    * `kubectl get clusterroles system:kube-apiserver-to-kubelet`
+* bind the system:kube-apiserver-to-kubelet cluster role to the kubernetes user
+```
+cat <<EOF | kubectl apply --kubeconfig admin.kubeconfig -f -
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: system:kube-apiserver
+  namespace: ""
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:kube-apiserver-to-kubelet
+subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: User
+    name: kubernetes
+EOF
+```
+* verify
+    * `kubectl get clusterrolebinding system:kube-apiserver`
+* from the workstation (not the controller instances) create the GCP resources for the load balancer
+    * retrieve public IP address
+        * `$KUBERNETES_PUBLIC_ADDRESS=$(gcloud compute addresses describe kubernetes-the-hard-way --region $(gcloud config get-value compute/region) --format 'value(address)')`
+    * create health check
+        * `gcloud compute http-health-checks create kubernetes --description "Kubernetes Health Check" --host "kubernetes.default.svc.cluster.local" --request-path "/healthz"`
+    * create firewall rules for health check
+        * `gcloud compute firewall-rules create kubernetes-the-hard-way-allow-health-check --network kubernetes-the-hard-way --source-ranges 209.85.152.0/22,209.85.204.0/22,35.191.0.0/16 --allow tcp`
+    * create target pool
+        * `gcloud compute target-pools create kubernetes-target-pool --http-health-check kubernetes`
+    * add controllers to target pool
+        * `gcloud compute target-pools add-instances kubernetes-target-pool --instances controller-0,controller-1,controller-2`
+    * create forwarding rule
+        * `gcloud compute forwarding-rules create kubernetes-forwarding-rule --address ${KUBERNETES_PUBLIC_ADDRESS} --ports 6443 --region $(gcloud config get-value compute/region) --target-pool kubernetes-target-pool`
+    * install curl via Chocolatey
+        * `cinst -y curl`
+    * make http request for the k8s cluster version info
+        * `Remove-Item Alias:curl; curl --cacert ca.pem https://${KUBERNETES_PUBLIC_ADDRESS}:6443/version`
+    
