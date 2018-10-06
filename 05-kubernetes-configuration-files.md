@@ -30,16 +30,16 @@
 * distribute kubeconfig files 
     * workers get kubelet(worker) and kube-proxy kubeconfigs
     * worker-0
-        * `$INSTANCE="worker-0"; gcloud compute scp "${instance}.kubeconfig" ${instance}:~; gcloud compute scp kube-proxy.kubeconfig ${instance}:~`
+        * `$INSTANCE="worker-0"; gcloud compute scp "${instance}.kubeconfig" ${instance}:"${instance}.kubeconfig"; gcloud compute scp kube-proxy.kubeconfig ${instance}:kube-proxy.kubeconfig`
     * worker-1
-        * `$INSTANCE="worker-1"; gcloud compute scp "${instance}.kubeconfig" ${instance}:~; gcloud compute scp kube-proxy.kubeconfig ${instance}:~`
+        * `$INSTANCE="worker-1"; gcloud compute scp "${instance}.kubeconfig" ${instance}:"${instance}.kubeconfig"; gcloud compute scp kube-proxy.kubeconfig ${instance}:kube-proxy.kubeconfig`
     * worker-2
-        * `$INSTANCE="worker-2"; gcloud compute scp "${instance}.kubeconfig" ${instance}:~; gcloud compute scp kube-proxy.kubeconfig ${instance}:~`
+        * `$INSTANCE="worker-2"; gcloud compute scp "${instance}.kubeconfig" ${instance}:"${instance}.kubeconfig"; gcloud compute scp kube-proxy.kubeconfig ${instance}:kube-proxy.kubeconfig`
     * controllers get admin, kube-controller-manager and kube-scheduler kubeconfigs
     * controller-0
-        * `$INSTANCE="controller-0"; gcloud compute scp admin.kubeconfig ${instance}:~; gcloud compute scp kube-controller-manager.kubeconfig ${instance}:~; gcloud compute scp kube-scheduler.kubeconfig ${instance}:~`
+        * `$INSTANCE="controller-0"; gcloud compute scp admin.kubeconfig ${instance}:admin.kubeconfig; gcloud compute scp kube-controller-manager.kubeconfig ${instance}:kube-controller-manager.kubeconfig; gcloud compute scp kube-scheduler.kubeconfig ${instance}:kube-scheduler.kubeconfig`
     * controller-1
-        * `$INSTANCE="controller-1"; gcloud compute scp admin.kubeconfig ${instance}:~; gcloud compute scp kube-controller-manager.kubeconfig ${instance}:~; gcloud compute scp kube-scheduler.kubeconfig ${instance}:~`
+        * `$INSTANCE="controller-1"; gcloud compute scp admin.kubeconfig ${instance}:admin.kubeconfig; gcloud compute scp kube-controller-manager.kubeconfig ${instance}:kube-controller-manager.kubeconfig; gcloud compute scp kube-scheduler.kubeconfig ${instance}:kube-scheduler.kubeconfig`
     * controller-2
-        * `$INSTANCE="controller-2"; gcloud compute scp admin.kubeconfig ${instance}:~; gcloud compute scp kube-controller-manager.kubeconfig ${instance}:~; gcloud compute scp kube-scheduler.kubeconfig ${instance}:~`
+        * `$INSTANCE="controller-2"; gcloud compute scp admin.kubeconfig ${instance}:admin.kubeconfig; gcloud compute scp kube-controller-manager.kubeconfig ${instance}:kube-controller-manager.kubeconfig; gcloud compute scp kube-scheduler.kubeconfig ${instance}:kube-scheduler.kubeconfig`
 
