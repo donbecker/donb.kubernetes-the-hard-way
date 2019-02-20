@@ -62,7 +62,7 @@
         }
       ]
     }
-    '@ | Out-File -encoding ASCII ca-csr.json
+    '@ | Out-File -encoding ASCII admin-csr.json
     ```
 * generate the admin client certificate
     * `cfssl gencert -ca="ca.pem" -ca-key="ca-key.pem" -config="ca-config.json" -profile=kubernetes .\admin-csr.json | cfssljson -bare admin`
