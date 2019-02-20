@@ -1,3 +1,4 @@
+* all commands below must be run on all controllers
 * create kubernetes config directory
     * `sudo mkdir -p /etc/kubernetes/config`
 * download k8s
