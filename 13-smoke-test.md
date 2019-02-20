@@ -54,6 +54,21 @@ Connection: keep-alive
 ETag: "5bb38577-264"
 Accept-Ranges: bytes
 ```
+* create untrusted workload
+```
+@'
+apiVersion: v1
+kind: Pod
+metadata:
+  name: untrusted
+  annotations:
+    io.kubernetes.cri.untrusted-workload: "true"
+spec:
+  containers:
+    - name: webserver
+      image: gcr.io/hightowerlabs/helloworld:2.0.0
+'@ | Out-File -encoding ASCII untrusted.yaml
+```
 * deploy the untrusted workload 
     * `kubectl apply -f .\untrusted.yaml`
 * verify pods running 
