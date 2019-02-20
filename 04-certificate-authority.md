@@ -43,6 +43,27 @@
     * ca-key.pem
     * ca.csr
     * ca.pem
+* generate admin cert signing request
+    ```
+    @'
+    {
+      "CN": "admin",
+      "key": {
+        "algo": "rsa",
+        "size": 2048
+      },
+      "names": [
+        {
+          "C": "US",
+          "L": "Portland",
+          "O": "system:masters",
+          "OU": "Kubernetes The Hard Way",
+          "ST": "Oregon"
+        }
+      ]
+    }
+    '@ | Out-File -encoding ASCII ca-csr.json
+    ```
 * generate the admin client certificate
     * `cfssl gencert -ca="ca.pem" -ca-key="ca-key.pem" -config="ca-config.json" -profile=kubernetes .\admin-csr.json | cfssljson -bare admin`
     * verify files generated
