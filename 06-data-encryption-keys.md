@@ -1,23 +1,25 @@
 * connect to the first controller and create the encryption config file
     * `Start-Process -FilePath "gcloud" -ArgumentList "compute ssh controller-0"`
-* generate encryption key
-    * `ENCRYPTION_KEY=$(head -c 32 /dev/urandom | base64)`
-* create the encryption file
-```
-cat > encryption-config.yaml <<EOF
-kind: EncryptionConfig
-apiVersion: v1
-resources:
-  - resources:
-      - secrets
-    providers:
-      - aescbc:
-          keys:
-            - name: key1
-              secret: ${ENCRYPTION_KEY}
-      - identity: {}
-EOF
-```
+* paste into shell on controller
+   * generate encryption key
+       * `ENCRYPTION_KEY=$(head -c 32 /dev/urandom | base64)`
+   * create the encryption file
+   ```
+   cat > encryption-config.yaml <<EOF
+   kind: EncryptionConfig
+   apiVersion: v1
+   resources:
+     - resources:
+         - secrets
+       providers:
+         - aescbc:
+             keys:
+               - name: key1
+                 secret: ${ENCRYPTION_KEY}
+         - identity: {}
+   EOF
+   ```
+* close shell on controller
 * copy the encryption config file from the controller to local
     * `$INSTANCE="controller-0"; gcloud compute scp ${instance}:encryption-config.yaml encryption-config.yaml`
 * distribute encryption config file to the other controllers
