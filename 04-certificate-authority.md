@@ -98,9 +98,57 @@
         * create cert
             * `cfssl gencert -ca="ca.pem" -ca-key="ca-key.pem" -config="ca-config.json" -hostname="${instance},${EXTERNAL_IP},${INTERNAL_IP}" -profile=kubernetes ${instance}-csr.json | cfssljson -bare ${instance}`
     * worker-1
-        * `$INSTANCE="worker-1"; $EXTERNAL_IP=$(gcloud compute instances describe ${instance} --format 'value(networkInterfaces[0].accessConfigs[0].natIP)'); $INTERNAL_IP=$(gcloud compute instances describe ${instance} --format 'value(networkInterfaces[0].networkIP)'); cfssl gencert -ca="ca.pem" -ca-key="ca-key.pem" -config="ca-config.json" -hostname="${instance},${EXTERNAL_IP},${INTERNAL_IP}" -profile=kubernetes ${instance}-csr.json | cfssljson -bare ${instance}`
+        * set vars
+            * `$INSTANCE="worker-1"; $EXTERNAL_IP=$(gcloud compute instances describe ${instance} --format 'value(networkInterfaces[0].accessConfigs[0].natIP)'); $INTERNAL_IP=$(gcloud compute instances describe ${instance} --format 'value(networkInterfaces[0].networkIP)');`
+        * create csr
+            ```
+            @'
+            {
+              "CN": "system:node:worker-1",
+              "key": {
+                "algo": "rsa",
+                "size": 2048
+              },
+              "names": [
+                {
+                  "C": "US",
+                  "L": "Portland",
+                  "O": "system:nodes",
+                  "OU": "Kubernetes The Hard Way",
+                  "ST": "Oregon"
+                }
+              ]
+            }
+            '@ | Out-File -encoding ASCII ${instance}-csr.json
+            ```
+        * create cert
+            * `cfssl gencert -ca="ca.pem" -ca-key="ca-key.pem" -config="ca-config.json" -hostname="${instance},${EXTERNAL_IP},${INTERNAL_IP}" -profile=kubernetes ${instance}-csr.json | cfssljson -bare ${instance}`
     * worker-2
-        * `$INSTANCE="worker-2"; $EXTERNAL_IP=$(gcloud compute instances describe ${instance} --format 'value(networkInterfaces[0].accessConfigs[0].natIP)'); $INTERNAL_IP=$(gcloud compute instances describe ${instance} --format 'value(networkInterfaces[0].networkIP)'); cfssl gencert -ca="ca.pem" -ca-key="ca-key.pem" -config="ca-config.json" -hostname="${instance},${EXTERNAL_IP},${INTERNAL_IP}" -profile=kubernetes ${instance}-csr.json | cfssljson -bare ${instance}`
+        * set vars
+            * `$INSTANCE="worker-2"; $EXTERNAL_IP=$(gcloud compute instances describe ${instance} --format 'value(networkInterfaces[0].accessConfigs[0].natIP)'); $INTERNAL_IP=$(gcloud compute instances describe ${instance} --format 'value(networkInterfaces[0].networkIP)');`
+        * create csr
+            ```
+            @'
+            {
+              "CN": "system:node:worker-2",
+              "key": {
+                "algo": "rsa",
+                "size": 2048
+              },
+              "names": [
+                {
+                  "C": "US",
+                  "L": "Portland",
+                  "O": "system:nodes",
+                  "OU": "Kubernetes The Hard Way",
+                  "ST": "Oregon"
+                }
+              ]
+            }
+            '@ | Out-File -encoding ASCII ${instance}-csr.json
+            ```
+        * create cert
+            * `cfssl gencert -ca="ca.pem" -ca-key="ca-key.pem" -config="ca-config.json" -hostname="${instance},${EXTERNAL_IP},${INTERNAL_IP}" -profile=kubernetes ${instance}-csr.json | cfssljson -bare ${instance}`
     * verify files generated
         * worker-0-key.pem
         * worker-0.csr
