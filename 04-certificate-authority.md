@@ -75,7 +75,7 @@
         * set vars
             * `$INSTANCE="worker-0"; $EXTERNAL_IP=$(gcloud compute instances describe ${instance} --format 'value(networkInterfaces[0].accessConfigs[0].natIP)'); $INTERNAL_IP=$(gcloud compute instances describe ${instance} --format 'value(networkInterfaces[0].networkIP)');`
         * create csr
-           ```
+            ```
             @'
             {
               "CN": "system:node:worker-0",
@@ -94,7 +94,7 @@
               ]
             }
             '@ | Out-File -encoding ASCII ${instance}-csr.json
-           ```
+            ```
         * create cert
             * `cfssl gencert -ca="ca.pem" -ca-key="ca-key.pem" -config="ca-config.json" -hostname="${instance},${EXTERNAL_IP},${INTERNAL_IP}" -profile=kubernetes ${instance}-csr.json | cfssljson -bare ${instance}`
     * worker-1
