@@ -14,7 +14,7 @@
         }
       }
     }
-    '@ > ca-config.json
+    '@ | Out-File -encoding ASCII ca-config.json
     ```
 * generate cert signing request
     ```
@@ -35,7 +35,7 @@
         }
       ]
     }
-    '@ > ca-csr.json
+    '@ | Out-File -encoding ASCII ca-csr.json
     ```
 * generate certificate and private key
     * `cfssl gencert -initca .\ca-csr.json | cfssljson -bare ca`
