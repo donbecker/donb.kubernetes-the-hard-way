@@ -1,21 +1,21 @@
 * generate ca config file
-```
-@'
-{
-  "signing": {
-    "default": {
-      "expiry": "8760h"
-    },
-    "profiles": {
-      "kubernetes": {
-        "usages": ["signing", "key encipherment", "server auth", "client auth"],
-        "expiry": "8760h"
+    ```
+    @'
+    {
+      "signing": {
+        "default": {
+          "expiry": "8760h"
+        },
+        "profiles": {
+          "kubernetes": {
+            "usages": ["signing", "key encipherment", "server auth", "client auth"],
+            "expiry": "8760h"
+          }
+        }
       }
     }
-  }
-}
-'@ > ca-config.json
-```
+    '@ > ca-config.json
+    ```
 * generate certificate and private key
     * `cfssl gencert -initca .\ca-csr.json | cfssljson -bare ca`
 * verify files generated
