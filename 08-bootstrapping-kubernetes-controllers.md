@@ -156,51 +156,51 @@ EOF
     * `curl -H "Host: kubernetes.default.svc.cluster.local" -i http://127.0.0.1/healthz`
 * from the controller-0 server:
     * create the system:kube-apiserver-to-kubelet cluster role
-```
-cat <<EOF | kubectl apply --kubeconfig admin.kubeconfig -f -
-apiVersion: rbac.authorization.k8s.io/v1beta1
-kind: ClusterRole
-metadata:
-  annotations:
-    rbac.authorization.kubernetes.io/autoupdate: "true"
-  labels:
-    kubernetes.io/bootstrapping: rbac-defaults
-  name: system:kube-apiserver-to-kubelet
-rules:
-  - apiGroups:
-      - ""
-    resources:
-      - nodes/proxy
-      - nodes/stats
-      - nodes/log
-      - nodes/spec
-      - nodes/metrics
-    verbs:
-      - "*"
-EOF
-```
-* verify
-    * `kubectl get clusterroles system:kube-apiserver-to-kubelet`
-* bind the system:kube-apiserver-to-kubelet cluster role to the kubernetes user
-```
-cat <<EOF | kubectl apply --kubeconfig admin.kubeconfig -f -
-apiVersion: rbac.authorization.k8s.io/v1beta1
-kind: ClusterRoleBinding
-metadata:
-  name: system:kube-apiserver
-  namespace: ""
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: system:kube-apiserver-to-kubelet
-subjects:
-  - apiGroup: rbac.authorization.k8s.io
-    kind: User
-    name: kubernetes
-EOF
-```
-* verify
-    * `kubectl get clusterrolebinding system:kube-apiserver`
+      ```
+      cat <<EOF | kubectl apply --kubeconfig admin.kubeconfig -f -
+      apiVersion: rbac.authorization.k8s.io/v1beta1
+      kind: ClusterRole
+      metadata:
+        annotations:
+          rbac.authorization.kubernetes.io/autoupdate: "true"
+        labels:
+          kubernetes.io/bootstrapping: rbac-defaults
+        name: system:kube-apiserver-to-kubelet
+      rules:
+        - apiGroups:
+            - ""
+          resources:
+            - nodes/proxy
+            - nodes/stats
+            - nodes/log
+            - nodes/spec
+            - nodes/metrics
+          verbs:
+            - "*"
+      EOF
+      ```
+   * verify
+      * `kubectl get clusterroles system:kube-apiserver-to-kubelet`
+   * bind the system:kube-apiserver-to-kubelet cluster role to the kubernetes user
+   ```
+   cat <<EOF | kubectl apply --kubeconfig admin.kubeconfig -f -
+   apiVersion: rbac.authorization.k8s.io/v1beta1
+   kind: ClusterRoleBinding
+   metadata:
+     name: system:kube-apiserver
+     namespace: ""
+   roleRef:
+     apiGroup: rbac.authorization.k8s.io
+     kind: ClusterRole
+     name: system:kube-apiserver-to-kubelet
+   subjects:
+     - apiGroup: rbac.authorization.k8s.io
+       kind: User
+       name: kubernetes
+   EOF
+   ```
+   * verify
+       * `kubectl get clusterrolebinding system:kube-apiserver`
 * from the workstation (not the controller instances) create the GCP resources for the load balancer
     * retrieve public IP address
         * `$KUBERNETES_PUBLIC_ADDRESS=$(gcloud compute addresses describe kubernetes-the-hard-way --region $(gcloud config get-value compute/region) --format 'value(address)')`
