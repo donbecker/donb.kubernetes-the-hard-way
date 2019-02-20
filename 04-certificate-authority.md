@@ -259,7 +259,7 @@
         }
       ]
     }
-    '@ | Out-File -encoding ASCII kube-scheduler-csr.json
+    '@ | Out-File -encoding ASCII kubernetes-csr.json
     ```
 * generate kubernetes api server certificate and key, adding our public IP to the list of subject alternative names
     * `$KUBERNETES_PUBLIC_ADDRESS=$(gcloud compute addresses describe kubernetes-the-hard-way --region $(gcloud config get-value compute/region) --format 'value(address)')`
