@@ -16,6 +16,27 @@
     }
     '@ > ca-config.json
     ```
+* generate cert signing request
+    ```
+    @'
+    {
+      "CN": "Kubernetes",
+      "key": {
+        "algo": "rsa",
+        "size": 2048
+      },
+      "names": [
+        {
+          "C": "US",
+          "L": "Portland",
+          "O": "Kubernetes",
+          "OU": "CA",
+          "ST": "Oregon"
+        }
+      ]
+    }
+    '@ > ca-csr.json
+    ```
 * generate certificate and private key
     * `cfssl gencert -initca .\ca-csr.json | cfssljson -bare ca`
 * verify files generated
