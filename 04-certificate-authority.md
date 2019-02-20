@@ -159,24 +159,108 @@
         * worker-2-key.pem
         * worker-2.csr
         * worker-2.pem
+* generate the kube-controller-manager csr
+    ```
+    @'
+    {
+      "CN": "system:kube-controller-manager",
+      "key": {
+        "algo": "rsa",
+        "size": 2048
+      },
+      "names": [
+        {
+          "C": "US",
+          "L": "Portland",
+          "O": "system:kube-controller-manager",
+          "OU": "Kubernetes The Hard Way",
+          "ST": "Oregon"
+        }
+      ]
+    }
+    '@ | Out-File -encoding ASCII kube-controller-manager-csr.json
+    ```
 * generate the kube-controller-manager client certificate and key
     * `cfssl gencert -ca="ca.pem" -ca-key="ca-key.pem" -config="ca-config.json" -profile=kubernetes .\kube-controller-manager-csr.json | cfssljson -bare kube-controller-manager`
     * verify files generated
         * kube-controller-manager-key.pem
         * kube-controller-manager.csr
         * kube-controller-manager.pem
+* generate the kube-proxy csr
+    ```
+    @'
+    {
+      "CN": "system:kube-proxy",
+      "key": {
+        "algo": "rsa",
+        "size": 2048
+      },
+      "names": [
+        {
+          "C": "US",
+          "L": "Portland",
+          "O": "system:node-proxier",
+          "OU": "Kubernetes The Hard Way",
+          "ST": "Oregon"
+        }
+      ]
+    }
+    '@ | Out-File -encoding ASCII kube-proxy-csr.json
+    ```
 * generate the kube-proxy client certificate and key
     * `cfssl gencert -ca="ca.pem" -ca-key="ca-key.pem" -config="ca-config.json" -profile=kubernetes .\kube-proxy-csr.json | cfssljson -bare kube-proxy`
     * verify files generated
         * kube-proxy-key.pem
         * kube-proxy.csr
         * kube-proxy.pem
+* generate the kube-scheduler csr
+    ```
+    @'
+    {
+      "CN": "system:kube-scheduler",
+      "key": {
+        "algo": "rsa",
+        "size": 2048
+      },
+      "names": [
+        {
+          "C": "US",
+          "L": "Portland",
+          "O": "system:kube-scheduler",
+          "OU": "Kubernetes The Hard Way",
+          "ST": "Oregon"
+        }
+      ]
+    }
+    '@ | Out-File -encoding ASCII kube-scheduler-csr.json
+    ```
 * generate the kube-scheduler client certificate and key
     * `cfssl gencert -ca="ca.pem" -ca-key="ca-key.pem" -config="ca-config.json" -profile=kubernetes .\kube-scheduler-csr.json | cfssljson -bare kube-scheduler`
     * verify files generated
         * kube-scheduler-key.pem
         * kube-scheduler.csr
         * kube-scheduler.pem
+* generate the kubernetes api server csr
+    ```
+    @'
+    {
+      "CN": "kubernetes",
+      "key": {
+        "algo": "rsa",
+        "size": 2048
+      },
+      "names": [
+        {
+          "C": "US",
+          "L": "Portland",
+          "O": "Kubernetes",
+          "OU": "Kubernetes The Hard Way",
+          "ST": "Oregon"
+        }
+      ]
+    }
+    '@ | Out-File -encoding ASCII kube-scheduler-csr.json
+    ```
 * generate kubernetes api server certificate and key, adding our public IP to the list of subject alternative names
     * `$KUBERNETES_PUBLIC_ADDRESS=$(gcloud compute addresses describe kubernetes-the-hard-way --region $(gcloud config get-value compute/region) --format 'value(address)')`
     * `cfssl gencert -ca="ca.pem" -ca-key="ca-key.pem" -config="ca-config.json" -hostname="10.32.0.1,10.240.0.10,10.240.0.11,10.240.0.12,${KUBERNETES_PUBLIC_ADDRESS},127.0.0.1,kubernetes.default" -profile=kubernetes .\kubernetes-csr.json | cfssljson -bare kubernetes`
@@ -184,6 +268,27 @@
         * kubernetes-key.pem
         * kubernetes.csr
         * kubernetes.pem
+* generate the service-account csr
+    ```
+    @'
+    {
+      "CN": "service-accounts",
+      "key": {
+        "algo": "rsa",
+        "size": 2048
+      },
+      "names": [
+        {
+          "C": "US",
+          "L": "Portland",
+          "O": "Kubernetes",
+          "OU": "Kubernetes The Hard Way",
+          "ST": "Oregon"
+        }
+      ]
+    }
+    '@ | Out-File -encoding ASCII service-account-csr.json
+    ```
 * generate the service-account client certificate and key
     * `cfssl gencert -ca="ca.pem" -ca-key="ca-key.pem" -config="ca-config.json" -profile=kubernetes .\service-account-csr.json | cfssljson -bare service-account`
     * verify files generated
