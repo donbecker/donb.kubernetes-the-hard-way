@@ -60,3 +60,4 @@ sudo ETCDCTL_API=3 etcdctl member list \
   --cert=/etc/etcd/kubernetes.pem \
   --key=/etc/etcd/kubernetes-key.pem
 ```  
+* next: https://github.com/donbecker/donb.kubernetes-the-hard-way/blob/master/08-bootstrapping-kubernetes-controllers.md
