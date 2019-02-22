@@ -204,4 +204,4 @@ EOF
     * `sudo systemctl start containerd kubelet kube-proxy`
 * from the controller, verify listing workers via kubectl
     * `kubectl get nodes --kubeconfig admin.kubeconfig`
-
+* next: https://github.com/donbecker/donb.kubernetes-the-hard-way/blob/master/10-configuring-kubectl.md
