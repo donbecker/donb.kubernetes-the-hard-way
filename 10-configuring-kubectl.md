@@ -13,3 +13,4 @@
         * `kubectl get componentstatuses`
     * verify node list 
         * `kubectl get nodes`
+* next: https://github.com/donbecker/donb.kubernetes-the-hard-way/blob/master/11-pod-network-routes.md
