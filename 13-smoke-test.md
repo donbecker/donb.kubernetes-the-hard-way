@@ -86,3 +86,4 @@ spec:
         * `CONTAINER_ID=$(sudo crictl -r unix:///var/run/containerd/containerd.sock ps -p ${POD_ID} -q)`
     * list processes running in webserver container
         * `sudo runsc --root /run/containerd/runsc/k8s.io ps ${CONTAINER_ID}`
+* next: https://github.com/donbecker/donb.kubernetes-the-hard-way/blob/master/14-cleanup.md
