@@ -7,3 +7,4 @@
         * `$instance="worker-2"; $internalip=$(gcloud compute instances describe ${instance} --format 'value[](networkInterfaces[0].networkIP)'); $podcidr=$(gcloud compute instances describe ${instance} --format 'value[](metadata.items[0].value)'); gcloud compute routes create kubernetes-route-$instance --network kubernetes-the-hard-way --next-hop-address $internalip --destination-range $podcidr`
 * verify routes
     * `gcloud compute routes list --filter "network: kubernetes-the-hard-way"`
+* next: https://github.com/donbecker/donb.kubernetes-the-hard-way/blob/master/12-dns-addon.md
