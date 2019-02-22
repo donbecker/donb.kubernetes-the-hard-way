@@ -29,3 +29,4 @@
     * `Start-Process -FilePath "gcloud" -ArgumentList "compute ssh worker-0"`
     * `Start-Process -FilePath "gcloud" -ArgumentList "compute ssh worker-1"`
     * `Start-Process -FilePath "gcloud" -ArgumentList "compute ssh worker-2"`
+* next: https://github.com/donbecker/donb.kubernetes-the-hard-way/blob/master/04-certificate-authority.md
