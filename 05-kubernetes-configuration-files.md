@@ -42,4 +42,4 @@
         * `$INSTANCE="controller-1"; gcloud compute scp admin.kubeconfig ${instance}:admin.kubeconfig; gcloud compute scp kube-controller-manager.kubeconfig ${instance}:kube-controller-manager.kubeconfig; gcloud compute scp kube-scheduler.kubeconfig ${instance}:kube-scheduler.kubeconfig`
     * controller-2
         * `$INSTANCE="controller-2"; gcloud compute scp admin.kubeconfig ${instance}:admin.kubeconfig; gcloud compute scp kube-controller-manager.kubeconfig ${instance}:kube-controller-manager.kubeconfig; gcloud compute scp kube-scheduler.kubeconfig ${instance}:kube-scheduler.kubeconfig`
-
+* next: https://github.com/donbecker/donb.kubernetes-the-hard-way/blob/master/06-data-encryption-keys.md
