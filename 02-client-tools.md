@@ -11,5 +11,5 @@
     * `cinst -y kubernetes-cli`
     * verify
         * `kubectl version --client`
-
+* next: https://github.com/donbecker/donb.kubernetes-the-hard-way/blob/master/03-compute-resources.md
 
