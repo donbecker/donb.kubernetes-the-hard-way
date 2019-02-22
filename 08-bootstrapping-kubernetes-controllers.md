@@ -218,4 +218,4 @@ EOF
         * `cinst -y curl`
     * make http request for the k8s cluster version info
         * `Remove-Item Alias:curl; curl --cacert ca.pem https://${KUBERNETES_PUBLIC_ADDRESS}:6443/version`
-    
+* next: https://github.com/donbecker/donb.kubernetes-the-hard-way/blob/master/09-bootstrapping-kubernetes-workers.md
