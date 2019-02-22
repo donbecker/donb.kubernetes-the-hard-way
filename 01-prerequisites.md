@@ -11,4 +11,5 @@
   * `gcloud config set compute/region us-west1`
 * set default compute zone 
   * `gcloud config set compute/zone us-west1-c`
-* tmux alternates on windows...
+
+* next: https://github.com/donbecker/donb.kubernetes-the-hard-way/blob/master/02-client-tools.md
