@@ -11,3 +11,4 @@
         * `$POD_NAME=$(kubectl get pods -l run=busybox -o jsonpath="{.items[0].metadata.name}")`
     * run DNS lookup for the kubernetes service from the busybox pod
         * `kubectl exec -ti $POD_NAME -- nslookup kubernetes`
+* next: https://github.com/donbecker/donb.kubernetes-the-hard-way/blob/master/13-smoke-test.md
