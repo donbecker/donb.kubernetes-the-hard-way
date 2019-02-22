@@ -27,3 +27,4 @@
         * `$INSTANCE="controller-1"; gcloud compute scp encryption-config.yaml ${instance}:encryption-config.yaml`
     * controller-2
         * `$INSTANCE="controller-2"; gcloud compute scp encryption-config.yaml ${instance}:encryption-config.yaml`
+* next: https://github.com/donbecker/donb.kubernetes-the-hard-way/blob/master/07-bootstrapping-etcd.md
